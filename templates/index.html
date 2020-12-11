@@ -7,32 +7,47 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Horse Races</title>
 
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
     crossorigin="" />
 
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <!-- Our CSS -->
-  <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  
 </head>
 
 <body>
 
+  <!-- title area container -->
   <div class="container">
-    <div class="jumbotron" style="text-align: center">
+    <div class="jumbotron" id="maintitle">
       <h1>Off to the Races</h1>
       <p>**Subtitle??**</p>
     </div>
 
-    <div id="svg-area"></div>
+  </div>
 
-    
+  
+
+  <!-- content area container  -->
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <a href="/button" class="btn btn-primary btn-lg btn-block">Generate a Race</a>
+        <!-- <button type="button" class="btn btn-primary btn-lg btn-block">Generate a Race</button> -->
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
           <h2><a href="/send">This will go to a new page</a></h2>
       </div>
-  </div>
+    </div>
       
       <div class="row">
         <div class="col-md-6">
@@ -43,28 +58,27 @@
     
   </div> 
 
-  <div id="map"></div> 
-  <!-- <div id="map"></div> -->
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
-  <!-- D3 JavaScript -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
-   ---> 
+  <!-- svg area if we need it -->
+  <div id="svg-area"></div>
+
+  
+  
+  <!-- D3 JavaScript/Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
   
 
+<!--  Our JavaScript Programs -->
   <script type="text/javascript" src="../static/js/app.js"></script>
   
-  
-  <!-- Our JavaScript -->
-  <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/logic.js') }}"></script> -->
-  <!-- <script type="text/javascript" src="../static/js/plot.js"></script> -->
   
 
 </body>
