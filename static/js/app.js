@@ -31,8 +31,8 @@ function buildPlot() {
   // for (let i = 0; i < rValues.length; i++) {
   //   console.log(rValues[i]);
   
-  //   let chartGroup = svg.append("g")
-  //         .attr("transform", `translate(${rValues[i]}, 10)`);
+    let chartGroup = svg.append("g")
+          .attr("transform", "translate(10, 10)");
 
 
     chartGroup.selectAll("circle")
