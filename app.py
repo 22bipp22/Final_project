@@ -29,7 +29,13 @@ def send():
 @app.route("/button", methods=["GET", "POST"])
 def button():
 
-    return render_template("page2.html")
+    f = open('output/complete.json')
+    
+    data = json.loads(f.read())
+
+    f.close()
+
+    return jsonify(data)
 
     
     
