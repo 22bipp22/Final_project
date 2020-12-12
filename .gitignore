@@ -1,3 +1,12 @@
+
+__pycache__/keys.cpython-37.pyc
+.ipynb_checkpoints/main_etl-checkpoint.ipynb
+keys.py
+.ipynb_checkpoints/ML_TRAIN-All-checkpoint.ipynb
+.ipynb_checkpoints/ML_TRAIN-checkpoint.ipynb
+testme.csv
+.ipynb_checkpoints/ML_TRAIN-All-Trees-checkpoint.ipynb
+.ipynb_checkpoints/ML_TRAIN-BEST-checkpoint.ipynb
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
