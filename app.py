@@ -43,17 +43,6 @@ def send():
 
     return render_template("page2.html")
 
-@app.route("/button", methods=["GET", "POST"])
-@cross_origin()
-def button():
-
-    f = open('output/complete.json')
-    
-    data = json.loads(f.read())
-
-    f.close()
-
-    return jsonify(data)
 
 @app.route("/dataset", methods=["GET", "POST"])
 @cross_origin()
@@ -61,6 +50,7 @@ def dataset():
 
     filtered_df = pd.read_sql(filtered_sql, connection)
     filtered_df_dictionary = filtered_df.to_dict('records')
+
 
     return jsonify(filtered_df_dictionary)
 
