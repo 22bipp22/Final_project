@@ -147,6 +147,7 @@ id serial primary key
 
 CREATE TABLE best_data_set(
  race_id integer
+,horse_id integer
 ,won integer
 ,distance numeric(18,2)
 ,race_class numeric(18,2)
@@ -344,6 +345,7 @@ JOIN runs rn ON rc.race_id = rn.race_id
 
 SELECT
  rc.race_id
+,rn.horse_id 
 ,rn.won
 --,rc.date
 --,rc.venue

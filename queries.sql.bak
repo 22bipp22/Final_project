@@ -147,6 +147,7 @@ id serial primary key
 
 CREATE TABLE best_data_set(
  race_id integer
+,horse_id integer
 ,won integer
 ,distance numeric(18,2)
 ,race_class numeric(18,2)
@@ -203,7 +204,15 @@ INSERT INTO raceruns (race_id, date, venue, race_no, config,surface,distance,goi
                      ,rn_time1,rn_time2,rn_time3,rn_time4
                      ,finish_time,win_odds,place_odds,trainer_id,jockey_id)
 */
-                     
+
+
+
+/********************************************
+THE BELOW QUERIES ARE TO BE RUN AFTER THE ABOVE TABLES ARE POPULATED
+
+********************************************/
+
+
 SELECT
  rc.race_id
 ,rn.won
