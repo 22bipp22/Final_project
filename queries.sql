@@ -1,3 +1,8 @@
+/*****************************************************
+CREATE THE TABLES BEFORE RUNNING THE IMPORT FROM JUPYTER NOTEBOOKS
+
+*****************************************************/
+
 Create table runs(
 id serial primary key
 ,race_id integer
@@ -138,6 +143,53 @@ id serial primary key
 ,trainer_id integer
 ,jockey_id integer);
 
+
+
+CREATE TABLE best_data_set(
+ race_id integer
+,won integer
+,distance numeric(18,2)
+,race_class numeric(18,2)
+,sec_time1 numeric(18,2)
+,sec_time2 numeric(18,2)
+,sec_time3 numeric(18,2)
+,sec_time4 numeric(18,2)
+,ldr_time1  numeric(18,2)
+,ldr_time2  numeric(18,2)
+,ldr_time3  numeric(18,2)
+,ldr_time4  numeric(18,2)
+,result numeric(18,2)
+,lengths_behind numeric(18,2)
+,behind_sec1 numeric(18,2)
+,behind_sec2 numeric(18,2)
+,behind_sec3 numeric(18,2)
+,behind_sec4 numeric(18,2)
+,time1 numeric(18,2)
+,time2 numeric(18,2)
+,time3 numeric(18,2)
+,time4 numeric(18,2)
+,win_odds numeric(18,2)
+,place_odds numeric(18,2)
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 INSERT INTO raceruns (race_id, date, venue, race_no, config,surface,distance,going,horse_ratings
                      ,prize,race_class,sec_time1,sec_time2,sec_time3,sec_time4
@@ -151,7 +203,15 @@ INSERT INTO raceruns (race_id, date, venue, race_no, config,surface,distance,goi
                      ,rn_time1,rn_time2,rn_time3,rn_time4
                      ,finish_time,win_odds,place_odds,trainer_id,jockey_id)
 */
-                     
+
+
+
+/********************************************
+THE BELOW QUERIES ARE TO BE RUN AFTER THE ABOVE TABLES ARE POPULATED
+
+********************************************/
+
+
 SELECT
  rc.race_id
 ,rn.won
@@ -347,30 +407,3 @@ JOIN runs rn ON rc.race_id = rn.race_id
 
 
 
-CREATE TABLE best_data_set(
- race_id integer
-,won integer
-,distance numeric(18,2)
-,race_class numeric(18,2)
-,sec_time1 numeric(18,2)
-,sec_time2 numeric(18,2)
-,sec_time3 numeric(18,2)
-,sec_time4 numeric(18,2)
-,ldr_time1  numeric(18,2)
-,ldr_time2  numeric(18,2)
-,ldr_time3  numeric(18,2)
-,ldr_time4  numeric(18,2)
-,result numeric(18,2)
-,lengths_behind numeric(18,2)
-,behind_sec1 numeric(18,2)
-,behind_sec2 numeric(18,2)
-,behind_sec3 numeric(18,2)
-,behind_sec4 numeric(18,2)
-,time1 numeric(18,2)
-,time2 numeric(18,2)
-,time3 numeric(18,2)
-,time4 numeric(18,2)
-,win_odds numeric(18,2)
-,place_odds numeric(18,2)
-
-)
