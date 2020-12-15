@@ -159,7 +159,7 @@ CREATE TABLE best_data_set(
 ,ldr_time2  numeric(18,2)
 ,ldr_time3  numeric(18,2)
 ,ldr_time4  numeric(18,2)
-,result numeric(18,2)
+--,result numeric(18,2)
 ,lengths_behind numeric(18,2)
 ,behind_sec1 numeric(18,2)
 ,behind_sec2 numeric(18,2)
@@ -375,7 +375,7 @@ SELECT
 --,rc.win_dividend1
 --,rn.horse_no
 --,rn.horse_id
-,rn.result
+--,rn.result
 ,rn.lengths_behind
 --,rn.horse_age
 --,rn.horse_country
