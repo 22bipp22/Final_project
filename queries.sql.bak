@@ -345,6 +345,7 @@ JOIN runs rn ON rc.race_id = rn.race_id
 
 SELECT
  rc.race_id
+,rn.horse_id 
 ,rn.won
 --,rc.date
 --,rc.venue
@@ -374,7 +375,7 @@ SELECT
 --,rc.win_dividend1
 --,rn.horse_no
 --,rn.horse_id
-,rn.result
+--,rn.result
 ,rn.lengths_behind
 --,rn.horse_age
 --,rn.horse_country
