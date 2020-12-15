@@ -1,10 +1,6 @@
+/// This function puts a random circle to hold SVG area in case
+///  we want to use it later. 
 function buildPlot() {
-  /* data route */
-//   let url = "/api/county";
-//   d3.json(url).then(function(data) {
-//     console.log(data)
-// });
-//  let svg = d3.select("#svg-area").append("svg");
 
  let svgWidth = window.innerWidth;
  let svgHeight = "100px";
@@ -13,23 +9,6 @@ function buildPlot() {
     .attr("width", svgWidth)
     .attr("height", svgHeight);
 
-// Part 2
-// Bind the SVG to the Data!
-
-  // let circles = svg.selectAll("circle");
-
-  // let segmentWidth = svgWidth/6
-  // let rValues = [(segmentWidth-segmentWidth/2), 
-  //       (segmentWidth*2 - segmentWidth/2), 
-  //       (segmentWidth*3 - segmentWidth/2),
-  //       (segmentWidth*4 - segmentWidth/2),
-  //       (segmentWidth*5 - segmentWidth/2)];
-  // let colors = ["red", "yellow", "green", "blue", "orange"]
-  // let circleText = ["Population", "Income", "Poverty", "Crime", "Unemployment"]
-
-
-  // for (let i = 0; i < rValues.length; i++) {
-  //   console.log(rValues[i]);
   
     let chartGroup = svg.append("g")
           .attr("transform", "translate(10, 10)");
@@ -45,30 +24,8 @@ function buildPlot() {
         .attr("stroke", "red")
         .attr("stroke-width", "2")
         .attr("opacity", "25%")
-        // .attr("fill", colors[i])
-        // .html(circleText[i])
-        // .on("mouseover", function() {
-        //   d3.select(this)
-        //     .attr('fill', 'gray')
-        // })
-        // .on("mouseout", function() {
-        //   d3.select(this)
-        //     .attr('fill', colors[i])
-        // })
-        // .on('click', function(){
-        //   selectItem = d3.select(this);
-        //   selectValue = selectItem.html();
-        //   mapOverlay(selectValue)
-        // })
-    
 
-    // chartGroup.append('text')
-    //   .html(circleText[i])
-    //   .attr('font-size', "12px")
-    //   .attr("x", "15")
-    //   .attr("y", "50")
     
   };
-// }
 
 buildPlot();
