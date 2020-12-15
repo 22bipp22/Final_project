@@ -22,7 +22,7 @@ from wtforms.validators import DataRequired, Length
 class HorseForm(FlaskForm):
     winOdds = FloatField('Win Odds', validators=[DataRequired()])
     secTime1 = FloatField('Section 1 Time', validators=[DataRequired()])
-    distance = SelectField("Distance", choices=["1400", "2200"], validators=[DataRequired()])
+    distance = SelectField("Distance", choices=['1200','1400',"2200"], validators=[DataRequired()])
     submit = SubmitField('Generate a Race')
 
 
@@ -54,13 +54,13 @@ app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 def home():
     ## Added to create form -
     form = HorseForm()
-    
+
     winOdds = form.winOdds.data
     secTime1 = form.secTime1.data 
     distance = form.distance.data 
     print(f"HERE IT IS {winOdds}, {secTime1}, {distance}")
     
-    # return render_template("index.html")
+    
     return render_template("index.html", form=form)
 
 
