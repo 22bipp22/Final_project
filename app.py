@@ -13,7 +13,18 @@ from flask import (
 from keys import sqlkey
 from sqlalchemy import and_
 from flask_cors import cross_origin
-from sklearn.linear_model import LogisticRegression  
+from sklearn.linear_model import LogisticRegression 
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextField, SubmitField, FloatField, SelectField
+from wtforms.validators import DataRequired, Length
+
+# Added to create form -
+class HorseForm(FlaskForm):
+    winOdds = FloatField('Win Odds', validators=[DataRequired()])
+    secTime1 = FloatField('Section 1 Time', validators=[DataRequired()])
+    distance = SelectField("Distance", choices=["1400", "2200"], validators=[DataRequired()])
+    submit = SubmitField('Generate a Race')
+
 
 model = joblib.load('horse_model.sav')
 
@@ -30,16 +41,27 @@ filtered_sql = "select * from best_data_set where 1=1"
 
 app = Flask(__name__)
 
+# Added to create form -
+# Flask-WTF requires an encryption key - the string can be anything
+app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 
 #################################################
 # Flask Routes
 #################################################
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @cross_origin()
 def home():
+    ## Added to create form -
+    form = HorseForm()
     
-    return render_template("index.html");
+    winOdds = form.winOdds.data
+    secTime1 = form.secTime1.data 
+    distance = form.distance.data 
+    print(f"HERE IT IS {winOdds}, {secTime1}, {distance}")
+    
+    # return render_template("index.html")
+    return render_template("index.html", form=form)
 
 
 
