@@ -7,15 +7,14 @@ function randomRace() {
   d3.json(url).then(function(response) {
     
     let raceData = response
-    console.log(raceData)
+    // console.log(raceData)
 
     horseNumbers = []
 
     for(let i = 0; i < 14; i++) {
 
       randomNumber =  Math.round(Math.random()*(4405 - 1) +1)
-      horseNumbers[i] = randomNumber
-      
+      horseNumbers[i] = randomNumber  
        
     }
     
@@ -37,39 +36,40 @@ function randomRace() {
 
   //   // Populate the table data
     let tableBody = table.append("tbody")
-  //   raceData.forEach((horse) => {
-  //     // console.log(ufoSighting);
-  //     let row = tableBody.append('tr');
-  //     Object.entries(horse).forEach(([key, value]) => {
-  //         let cell = row.append('td');
-  //         cell.text(value);
-  //     });
-  // });
+   
     
-    
-    // horseNumbers.forEach((number) => {
-        // for(let i = 0; i < response.length; i++) {
-        //   if (number == response[i].horse_id) {
-        //     let row = tableBody.append('tr');
-        //     let cell = row.append('td');
-        //     cell.text(number);
-        //   }
-        // }
+  // Loop through the randomly generated horse numbers to populate the table
+    horseNumbers.forEach((number) => {
+      // search through the data for matching horse numbers and populate table with the data found 
+      for(let i = 0; i < raceData.length; i++) {
+          if (number == raceData[i].horse_id) {
+            let row = tableBody.append('tr');
+            let cell = row.append('td');
+            cell.text(number);
+            let cell2 = row.append('td')
+            cell2.text(raceData[i].race_id);
+            let cell3 = row.append('td')
+            cell3.text(raceData[i].distance);
+            let cell4 = row.append('td')
+            cell4.text(raceData[i].place_odds);
+            let cell5 = row.append('td')
+            cell5.text(raceData[i].result);
+            let cell6 = row.append('td')
+            // Check to see if the horse won or lost the race and populate accordingly
+            if (raceData[i].won == 0) { 
+              cell6.text("Lost");
+            }
+              else {
+                cell6.text("Won");
+              }
+          }
+        }
 
-    //     console.log(number);
-    //     let row = tableBody.append('tr');
-    //     let cell = row.append('td');
-    //     cell.text(number);
+  
         
-    // });  
+    });  
   
   });
 
 } 
  
-
-
-
-
-
-
