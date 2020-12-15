@@ -15,6 +15,7 @@
 #maintitle {
   color: white;
   font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;
+  -webkit-text-stroke: 2px red;
   text-align: center;
   background-image: url("Horse_Races.jpg");
   background-size: cover;
