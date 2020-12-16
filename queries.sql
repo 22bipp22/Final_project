@@ -85,6 +85,94 @@ id serial primary key
 );
 
 
+
+
+
+SELECT
+ rc.race_id
+,rn.horse_id 
+,rn.won
+--,rc.date
+--,rc.venue
+--,rc.race_no
+--,rc.config
+--,rc.surface
+,rc.distance
+--,rc.going
+--,rc.horse_ratings
+--,rc.prize
+,rc.race_class
+,rc.sec_time1
+,rc.sec_time2
+,rc.sec_time3
+,rc.sec_time4
+,rc.time1 ldr_time1
+,rc.time2 ldr_time2
+,rc.time3 ldr_time3
+,rc.time4 ldr_time4
+--,rc.place_combination1
+--,rc.place_combination2
+--,rc.place_combination3
+--,rc.place_dividend1
+--,rc.place_dividend2
+--,rc.place_dividend3
+--,rc.win_combination1
+--,rc.win_dividend1
+--,rn.horse_no
+--,rn.horse_id
+--,rn.result
+,rn.lengths_behind
+--,rn.horse_age
+--,rn.horse_country
+--,rn.horse_rating
+--,rn.declared_weight
+--,rn.actual_weight
+--,rn.draw
+--,rn.position_sec1
+--,rn.position_sec2
+--,rn.position_sec3
+--,rn.position_sec4
+,rn.behind_sec1
+,rn.behind_sec2
+,rn.behind_sec3
+,rn.behind_sec4
+,rn.time1
+,rn.time2
+,rn.time3
+,rn.time4
+,rn.finish_time finish_time
+,rn.win_odds
+,rn.place_odds
+--,rn.trainer_id
+--,rn.jockey_id
+
+
+INTO best_ranked_data
+FROM races rc
+JOIN runs rn ON rc.race_id = rn.race_id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 create table raceruns (
 id serial primary key
 ,race_id integer
@@ -142,9 +230,9 @@ id serial primary key
 ,place_odds numeric(18,2)
 ,trainer_id integer
 ,jockey_id integer);
+*/
 
-
-
+/*
 CREATE TABLE best_data_set(
  race_id integer
 ,finish_time numeric(18,2)
@@ -177,7 +265,7 @@ CREATE TABLE best_data_set(
 
 
 
-
+*/
 
 
 
@@ -213,7 +301,7 @@ THE BELOW QUERIES ARE TO BE RUN AFTER THE ABOVE TABLES ARE POPULATED
 
 ********************************************/
 
-
+/*
 SELECT
  rc.race_id
 ,rn.won
@@ -340,72 +428,11 @@ INTO training_data
 FROM races rc
 JOIN runs rn ON rc.race_id = rn.race_id
 
+*/
 
 
 
 
-SELECT
- rc.race_id
-,rn.horse_id 
-,rn.won
---,rc.date
---,rc.venue
---,rc.race_no
---,rc.config
---,rc.surface
-,rc.distance
---,rc.going
---,rc.horse_ratings
---,rc.prize
-,rc.race_class
-,rc.sec_time1
-,rc.sec_time2
-,rc.sec_time3
-,rc.sec_time4
-,rc.time1 ldr_time1
-,rc.time2 ldr_time2
-,rc.time3 ldr_time3
-,rc.time4 ldr_time4
---,rc.place_combination1
---,rc.place_combination2
---,rc.place_combination3
---,rc.place_dividend1
---,rc.place_dividend2
---,rc.place_dividend3
---,rc.win_combination1
---,rc.win_dividend1
---,rn.horse_no
---,rn.horse_id
---,rn.result
-,rn.lengths_behind
---,rn.horse_age
---,rn.horse_country
---,rn.horse_rating
---,rn.declared_weight
---,rn.actual_weight
---,rn.draw
---,rn.position_sec1
---,rn.position_sec2
---,rn.position_sec3
---,rn.position_sec4
-,rn.behind_sec1
-,rn.behind_sec2
-,rn.behind_sec3
-,rn.behind_sec4
-,rn.time1
-,rn.time2
-,rn.time3
-,rn.time4
-,round(rn.finish_time,0) finish_time
-,rn.win_odds
-,rn.place_odds
---,rn.trainer_id
---,rn.jockey_id
-
-
-INTO best_ranked_data
-FROM races rc
-JOIN runs rn ON rc.race_id = rn.race_id
 
 
 
