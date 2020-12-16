@@ -13,7 +13,20 @@ from flask import (
 from keys import sqlkey
 from sqlalchemy import and_
 from flask_cors import cross_origin
-from sklearn.linear_model import LogisticRegression  
+from sklearn.linear_model import LogisticRegression 
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextField, SubmitField, FloatField, SelectField
+from wtforms.validators import DataRequired, Length
+
+# Added to create form -
+class HorseForm(FlaskForm):
+    winOdds = FloatField('Win Odds (1.0-100.0)', validators=[DataRequired()])
+    placeOdds = FloatField('Place Odds (1.0-100.0)', validators=[DataRequired()])
+    raceClass = SelectField('Race Class', choices=[0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 11.0, 12.0, 13.0], validators=[DataRequired()])
+    distance = SelectField("Distance", choices=[1400,1600,1650,1800,2000,2200,2400], validators=[DataRequired()])
+    lengthsBehind = FloatField('Lengths Behind Leader (0-999)', validators=[DataRequired()])
+    submit = SubmitField('Generate a Race')
+
 
 model = joblib.load('horse_model.sav')
 
@@ -30,16 +43,29 @@ filtered_sql = "select * from best_data_set where 1=1"
 
 app = Flask(__name__)
 
+# Added to create form -
+# Flask-WTF requires an encryption key - the string can be anything
+app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 
 #################################################
 # Flask Routes
 #################################################
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @cross_origin()
 def home():
+    ## Added to create form -
+    form = HorseForm()
+
+    winOdds = form.winOdds.data
+    placeOdds = form.placeOdds.data
+    raceClass = form.raceClass.data 
+    distance = form.distance.data 
+    lengthsBehind = form.lengthsBehind.data
+    print(f"HERE IT IS {winOdds}, {raceClass}, {distance}")
     
-    return render_template("index.html");
+    
+    return render_template("index.html", form=form)
 
 
 
@@ -56,7 +82,7 @@ def dataset():
 
     filtered_df = pd.read_sql(filtered_sql, connection)
     filtered_df_dictionary = filtered_df.to_dict('records')
-
+    print("inside dataset")
 
     return jsonify(filtered_df_dictionary)
 

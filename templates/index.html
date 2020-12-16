@@ -27,7 +27,7 @@
   <div class="container">
     <div class="jumbotron" id="maintitle">
       <h1>Off to the Races</h1>
-      <p>**Subtitle??**</p>
+      <p>**A predictor of horse race winners**</p>
     </div>
 
   </div>
@@ -36,12 +36,7 @@
 
   <!-- content area container  -->
   <div class="container">
-    <div class="row">
-      <div class="col">
-        <button onclick=randomRace() class="btn btn-primary btn-lg btn-block">Generate Race</button>
-      </div>
-    </div>
-
+    
     <div class="row">
       <div class="col-md-12">
           <h2><a href="/send">See Race Visualizations...</a></h2>
@@ -50,7 +45,7 @@
       
       <div class="row">
         <div class="col-md-6">
-          <h2>Section Title</h2>
+          <h2>Initial visualizations should go here: </h2>
         </div>
       </div>
       
@@ -60,7 +55,60 @@
   <!-- svg area if we need it -->
   <div id="svg-area"></div>
 
-  
+  <div class="container">
+    
+    <!-- <form id="form">
+      <div class="form-group">
+        <ul class="list-group" id="filters">
+          <li class="filter list-group-item">
+            <label>Enter the win odds</label>
+            <input class="form-control" id="winodds" type="text">
+          </li>
+          <li class="filter list-group-item">
+            <label>Enter section 1 Time</label>
+            <input class="form-control" id="sectime1" type="text">
+          </li>
+        </ul>
+      </div>
+    </form> -->
+    <!-- <button onclick=randomRace() class="btn btn-primary btn-lg btn-block">Generate Race</button> -->
+      
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <h1 class="pt5 pb2">Welcome to the Race Generator</h1>
+    </div>
+    <div class="row">
+      <form action="/" method="post">
+        <fieldset class="form-field">
+          {{ form.winOdds.label }}
+          {{ form.winOdds(size=10) }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.placeOdds.label }}
+          {{ form.placeOdds(size=10) }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.raceClass.label }}
+          {{ form.raceClass }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.distance.label }}
+          {{ form.distance }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.lengthsBehind.label }}
+          {{ form.lengthsBehind(size=10) }}
+        </fieldset>
+        <button onclick=randomRace() class="btn btn-block">
+          {{ form.submit }}
+        </button>  
+          
+        
+      </form>
+    </div>
+  </div>
   
   <!-- D3 JavaScript/Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
