@@ -1,0 +1,57 @@
+CREATE TABLE uniqueids AS
+WITH summary AS (
+SELECT 
+	b.race_id,
+	b.horse_id,
+	b.won,
+	b.distance,
+	b.race_class,
+	b.sec_time1,
+	b.sec_time2,
+	b.sec_time3,
+	b.sec_time4,
+	b.ldr_time1,
+	b.ldr_time2,
+	b.ldr_time3, 
+	b.ldr_time4,
+	b.lengths_behind,
+	b.behind_sec1,
+	b.behind_sec2,
+	b.behind_sec3,
+	b.behind_sec4,
+	b.time1,
+	b.time2,
+	b.time3,
+	b.time4,
+	b.win_odds,
+	b.place_odds,
+	ROW_NUMBER() OVER(PARTITION BY b.horse_id
+					 ORDER BY b.distance DESC) AS rk
+	FROM best_data_set b)
+	
+SELECT 
+	s.race_id,
+	s.horse_id,
+	s.won,
+	s.distance,
+	s.race_class,
+	s.sec_time1,
+	s.sec_time2,
+	s.sec_time3,
+	s.sec_time4,
+	s.ldr_time1,
+	s.ldr_time2,
+	s.ldr_time3, 
+	s.ldr_time4,
+	s.lengths_behind,
+	s.behind_sec1,
+	s.behind_sec2,
+	s.behind_sec3,
+	s.behind_sec4,
+	s.time1,
+	s.time2,
+	s.time3,
+	s.time4,
+	s.win_odds,
+	s.place_odds
+FROM summary s WHERE s.rk =1
