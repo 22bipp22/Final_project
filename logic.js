@@ -2,7 +2,13 @@
 // loop through data
 //This function generates 14 random numbers and loads them into a table on the 
   // webpage. Will need to add functionality to run those horse numbers through the model. 
+let form = d3.selectAll(".filter");
+form.on("change", dataFilter);
+// let button = d3.selectAll(".btn")
+// button.on("click", randomRace);
+  
 function randomRace() {  
+  console.log("I made it here")
   const url = "/racegeneration";
   d3.json(url).then(function(response) {
     
@@ -18,6 +24,7 @@ function randomRace() {
       horseNumbers.push(randomNumber)
     }
 
+    
     // Create the Table Header Row
     let webBody = d3.select("body");
     let table = webBody.append("table")
@@ -70,6 +77,28 @@ function randomRace() {
     });  
   
   });
+}
 
-} 
- 
+//Initialize the area to hold the filters
+let filterValues = {};
+
+// Function to handle  the data if data entered
+function dataFilter() {
+    //Grab the event and set filter values. 
+    
+    let variable = d3.select("input");
+    let filterKey = variable.attr("id");
+    let filterValue = variable.property("value");
+    console.log(filterValue);
+    console.log(filterKey)
+
+    //If data was entered into the filter field, add it to the filters list
+    if (filterValue) {
+        filterValues[filterKey] = filterValue;
+        console.log(filterValues);
+    }
+    else {
+        delete filterValues[filterKey];
+    }
+  
+}
