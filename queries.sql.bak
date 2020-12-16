@@ -85,6 +85,7 @@ id serial primary key
 );
 
 
+/*
 create table raceruns (
 id serial primary key
 ,race_id integer
@@ -142,11 +143,12 @@ id serial primary key
 ,place_odds numeric(18,2)
 ,trainer_id integer
 ,jockey_id integer);
+*/
 
-
-
+/*
 CREATE TABLE best_data_set(
  race_id integer
+,finish_time numeric(18,2)
 ,horse_id integer
 ,won integer
 ,distance numeric(18,2)
@@ -176,7 +178,7 @@ CREATE TABLE best_data_set(
 
 
 
-
+*/
 
 
 
@@ -212,7 +214,7 @@ THE BELOW QUERIES ARE TO BE RUN AFTER THE ABOVE TABLES ARE POPULATED
 
 ********************************************/
 
-
+/*
 SELECT
  rc.race_id
 ,rn.won
@@ -339,7 +341,7 @@ INTO training_data
 FROM races rc
 JOIN runs rn ON rc.race_id = rn.race_id
 
-
+*/
 
 
 
@@ -395,7 +397,7 @@ SELECT
 ,rn.time2
 ,rn.time3
 ,rn.time4
---,rn.finish_time
+,round(rn.finish_time,0) finish_time
 ,rn.win_odds
 ,rn.place_odds
 --,rn.trainer_id
