@@ -147,6 +147,7 @@ id serial primary key
 
 CREATE TABLE best_data_set(
  race_id integer
+,finish_time numeric(18,2)
 ,horse_id integer
 ,won integer
 ,distance numeric(18,2)
@@ -395,7 +396,7 @@ SELECT
 ,rn.time2
 ,rn.time3
 ,rn.time4
---,rn.finish_time
+,round(rn.finish_time,0) finish_time
 ,rn.win_odds
 ,rn.place_odds
 --,rn.trainer_id
