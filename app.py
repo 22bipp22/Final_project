@@ -20,9 +20,11 @@ from wtforms.validators import DataRequired, Length
 
 # Added to create form -
 class HorseForm(FlaskForm):
-    winOdds = FloatField('Win Odds', validators=[DataRequired()])
-    secTime1 = FloatField('Section 1 Time', validators=[DataRequired()])
-    distance = SelectField("Distance", choices=['1200','1400',"2200"], validators=[DataRequired()])
+    winOdds = FloatField('Win Odds (1.0-100.0)', validators=[DataRequired()])
+    placeOdds = FloatField('Place Odds (1.0-100.0)', validators=[DataRequired()])
+    raceClass = SelectField('Race Class', choices=[0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 11.0, 12.0, 13.0], validators=[DataRequired()])
+    distance = SelectField("Distance", choices=[1400,1600,1650,1800,2000,2200,2400], validators=[DataRequired()])
+    lengthsBehind = FloatField('Lengths Behind Leader (0-999)', validators=[DataRequired()])
     submit = SubmitField('Generate a Race')
 
 
@@ -37,7 +39,7 @@ engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_ra
 connection = engine.connect()
 
 filtered_sql = "select * from best_data_set where 1=1"
-uniqueid_sql = "select * from uniqueids"
+
 
 app = Flask(__name__)
 
@@ -56,9 +58,11 @@ def home():
     form = HorseForm()
 
     winOdds = form.winOdds.data
-    secTime1 = form.secTime1.data 
+    placeOdds = form.placeOdds.data
+    raceClass = form.raceClass.data 
     distance = form.distance.data 
-    print(f"HERE IT IS {winOdds}, {secTime1}, {distance}")
+    lengthsBehind = form.lengthsBehind.data
+    print(f"HERE IT IS {winOdds}, {raceClass}, {distance}")
     
     
     return render_template("index.html", form=form)
@@ -78,18 +82,9 @@ def dataset():
 
     filtered_df = pd.read_sql(filtered_sql, connection)
     filtered_df_dictionary = filtered_df.to_dict('records')
-
+    print("inside dataset")
 
     return jsonify(filtered_df_dictionary)
-
-@app.route("/racegeneration", methods=["GET", "POST"])
-@cross_origin()
-def unique():
-
-    unique_df = pd.read_sql(uniqueid_sql, connection)
-    unique_df_dictionary = unique_df.to_dict('records')
-
-    return jsonify(unique_df_dictionary)
 
    
 

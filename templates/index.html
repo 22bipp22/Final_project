@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Horse Races</title>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  
+</head>
+
+<body>
+
+  <!-- title area container -->
+  <div class="container">
+    <div class="jumbotron" id="maintitle">
+      <h1>Off to the Races</h1>
+      <p>**A predictor of horse race winners**</p>
+    </div>
+
+  </div>
+
+  
+
+  <!-- content area container  -->
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-md-12">
+          <h2><a href="/send">See Race Visualizations...</a></h2>
+      </div>
+    </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Initial visualizations should go here: </h2>
+        </div>
+      </div>
+      
+    
+  </div> 
+
+  <!-- svg area if we need it -->
+  <div id="svg-area"></div>
+
+  <div class="container">
+    
+    <!-- <form id="form">
+      <div class="form-group">
+        <ul class="list-group" id="filters">
+          <li class="filter list-group-item">
+            <label>Enter the win odds</label>
+            <input class="form-control" id="winodds" type="text">
+          </li>
+          <li class="filter list-group-item">
+            <label>Enter section 1 Time</label>
+            <input class="form-control" id="sectime1" type="text">
+          </li>
+        </ul>
+      </div>
+    </form> -->
+    <!-- <button onclick=randomRace() class="btn btn-primary btn-lg btn-block">Generate Race</button> -->
+      
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <h1 class="pt5 pb2">Welcome to the Race Generator</h1>
+    </div>
+    <div class="row">
+      <form action="/" method="post">
+        <fieldset class="form-field">
+          {{ form.winOdds.label }}
+          {{ form.winOdds(size=10) }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.placeOdds.label }}
+          {{ form.placeOdds(size=10) }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.raceClass.label }}
+          {{ form.raceClass }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.distance.label }}
+          {{ form.distance }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.lengthsBehind.label }}
+          {{ form.lengthsBehind(size=10) }}
+        </fieldset>
+        <button onclick=randomRace() class="btn btn-block">
+          {{ form.submit }}
+        </button>  
+          
+        
+      </form>
+    </div>
+  </div>
+  
+  <!-- D3 JavaScript/Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  
+
+<!--  Our JavaScript Programs -->
+  <script type="text/javascript" src="../static/js/app.js"></script>
+  <script type="text/javascript" src="../static/js/logic.js"></script>
+  
+  
+
+</body>
+
+</html>
