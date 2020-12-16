@@ -71,11 +71,35 @@ function randomRace() {
               }
           }
         }
+    
 
-  
+
+    
+        arrayofarrays = []
+
+        horseNumbers.forEach((number) => {
+          // search through the data for matching horse numbers and populate table with the data found 
+          for(let i = 0; i < raceData.length; i++) {
+              if (number == raceData[i].horse_id) {
+      
+                  horsearrays = [],
+                  horsearrays.push(number),
+                  horsearrays.push(raceData[i].race_id),
+                  horsearrays.push(raceData[i].distance),
+                  horsearrays.push(raceData[i].place_odds),
+                  arrayofarrays.push(horsearrays);
+
+          
+              }
+                
+          }
+
+        }) 
+
+
         
     });  
-  
+console.log(arrayofarrays) 
   });
 }
 
@@ -102,3 +126,7 @@ function dataFilter() {
     }
   
 }
+
+
+
+
