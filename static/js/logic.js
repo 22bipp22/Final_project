@@ -2,8 +2,8 @@
 // loop through data
 //This function generates 14 random numbers and loads them into a table on the 
   // webpage. Will need to add functionality to run those horse numbers through the model. 
-let form = d3.selectAll(".filter");
-form.on("change", dataFilter);
+// let form = d3.selectAll(".filter");
+// form.on("change", dataFilter);
 // let button = d3.selectAll(".btn")
 // button.on("click", randomRace);
   
@@ -12,6 +12,7 @@ function randomRace() {
   let winner = d3.select("#winOdds")
   console.log(winner.node().value)
   
+  let data1 = ""
   const url = "/dataset";
   d3.json(url).then(function(response) {
     
@@ -74,12 +75,34 @@ function randomRace() {
           }
         }
 
-  
+        arrayofarrays = []
+
+        horseNumbers.forEach((number) => {
+          // search through the data for matching horse numbers and populate table with the data found 
+          for(let i = 0; i < raceData.length; i++) {
+              if (number == raceData[i].horse_id) {
+      
+                  horsearrays = [],
+                  horsearrays.push(number),
+                  horsearrays.push(raceData[i].race_id),
+                  horsearrays.push(raceData[i].distance),
+                  horsearrays.push(raceData[i].place_odds),
+                  arrayofarrays.push(horsearrays);
+
+          
+              }
+                
+          }
+
+        }) 
         
     });  
-  
+
   });
-}
+ 
+    console.log(arrayofarrays)
+  
+
 
 //Initialize the area to hold the filters
 let filterValues = {};
@@ -104,4 +127,5 @@ function dataFilter() {
     }
   
 }
-randomRace()
+}
+// randomRace()

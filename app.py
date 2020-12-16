@@ -1,3 +1,4 @@
+import random
 import sqlalchemy
 import pandas as pd
 import joblib
@@ -28,7 +29,7 @@ class HorseForm(FlaskForm):
     submit = SubmitField('Generate a Race')
 
 
-model = joblib.load('horse_model.sav')
+model = joblib.load('horse_time_model.sav')
 
 Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82.64,10,8,2,2,1.5,8,13.85,21.59,23.86,24.62,9.7,3.7
 ])
@@ -38,7 +39,7 @@ Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82
 engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_races')
 connection = engine.connect()
 
-filtered_sql = "select * from best_data_set where 1=1"
+filtered_sql = "select * from best_ranked_data where 1=1"
 
 
 app = Flask(__name__)
@@ -57,13 +58,16 @@ def home():
     ## Added to create form -
     form = HorseForm()
 
-    winOdds = form.winOdds.data
-    placeOdds = form.placeOdds.data
-    raceClass = form.raceClass.data 
-    distance = form.distance.data 
-    lengthsBehind = form.lengthsBehind.data
-    print(f"HERE IT IS {winOdds}, {raceClass}, {distance}")
-    
+    # If form data entered, populate fields from form
+    if request.method == "POST":
+        winOdds = form.winOdds.data
+        placeOdds = form.placeOdds.data
+        raceClass = form.raceClass.data 
+        distance = form.distance.data 
+        lengthsBehind = form.lengthsBehind.data
+        print(f"HERE IT IS {winOdds}, {raceClass}, {distance}")
+        # Call the function 'race' to run the mock race
+        race(form)
     
     return render_template("index.html", form=form)
 
@@ -82,11 +86,94 @@ def dataset():
 
     filtered_df = pd.read_sql(filtered_sql, connection)
     filtered_df_dictionary = filtered_df.to_dict('records')
-    print("inside dataset")
+    print(f'this {filtered_df["horse_id"][0]}')
 
     return jsonify(filtered_df_dictionary)
 
-   
+# @app.route("/racegeneration", methods=["GET", "POST"])
+# @cross_origin()
+# def unique():
+
+#     unique_df = pd.read_sql(uniqueid_sql, connection)
+#     unique_df_dictionary = unique_df.to_dict('records')
+
+#     return jsonify(unique_df_dictionary)
+
+# Function to set up the mock race and run it through the ML model
+def race(horse):  
+
+    horse_df = pd.read_sql(filtered_sql, connection)
+
+    winodds = horse.winOdds.data   
+    placeodds = horse.placeOdds.data    
+    raceclass = horse.raceClass.data
+    distance = horse.distance.data    
+    lengths = horse.lengthsBehind.data  
+
+    race_df = pd.DataFrame ({
+            "race_id": [2],
+            "horse_id": [9999],
+            "won": [0], 
+            "distance": [distance],
+            "race_class": [raceclass],
+            "sec_time1": [23],
+            "sec_time2": [24],
+            "sec_time3": [23],
+            "sec_time4": [24],
+            "ldr_time1": [25],
+            "ldr_time2": [28],
+            "ldr_time3": [72],
+            "ldr_time4": [95],
+            "lengths_behind": [lengths],
+            "behind_sec1": [3],
+            "behind_sec2": [4],
+            "behind_sec3": [7],
+            "behind_sec4": [9],
+            "time1": [25],
+            "time2": [25],
+            "time3": [25],
+            "time4": [25],
+            "finish_time": [0.00],
+            "win_odds": [winodds],
+            "place_odds": [placeodds]
+        })
+
+    horseNums = random.sample(range(4404), 13)
+    print(f"horsenumbers {horseNums}")
+    for num in horseNums: 
+        row = horse_df.loc[horse_df['horse_id'] == num].iloc[0]
+        df = pd.DataFrame ([[
+            row.race_id,
+            row.horse_id,
+            row.won, 
+            row.distance,
+            row.race_class,
+            row.sec_time1,
+            row.sec_time2,
+            row.sec_time3,
+            row.sec_time4,
+            row.ldr_time1,
+            row.ldr_time2,
+            row.ldr_time3,
+            row.ldr_time4,
+            row.lengths_behind,
+            row.behind_sec1,
+            row.behind_sec2,
+            row.behind_sec3,
+            row.behind_sec4,
+            row.time1,
+            row.time2,
+            row.time3,
+            row.time4,
+            row.finish_time,
+            row.win_odds,
+            row.place_odds]], columns=race_df.columns)
+        race_df = pd.concat([race_df, df])
+        
+        
+
+    # print(f"one horse: {model.predict(horsearray)}") 
+    print(f"race df {race_df}")
 
 if __name__ == '__main__':
     app.run(debug=True)
