@@ -9,11 +9,14 @@ form.on("change", dataFilter);
   
 function randomRace() {  
   console.log("I made it here")
+  let winner = d3.select("#winOdds")
+  console.log(winner.node().value)
+  
   const url = "/dataset";
   d3.json(url).then(function(response) {
     
     let raceData = response
-    // console.log(raceData)
+    console.log(raceData)
 
     horseNumbers = []
 
@@ -101,3 +104,4 @@ function dataFilter() {
     }
   
 }
+randomRace()

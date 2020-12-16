@@ -83,15 +83,23 @@
       <form action="/" method="post">
         <fieldset class="form-field">
           {{ form.winOdds.label }}
-          {{ form.winOdds(size=15) }}
+          {{ form.winOdds(size=10) }}
         </fieldset>
         <fieldset class="form-field">
-          {{ form.secTime1.label }}
-          {{ form.secTime1(size=15) }}
+          {{ form.placeOdds.label }}
+          {{ form.placeOdds(size=10) }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.raceClass.label }}
+          {{ form.raceClass }}
         </fieldset>
         <fieldset class="form-field">
           {{ form.distance.label }}
           {{ form.distance }}
+        </fieldset>
+        <fieldset class="form-field">
+          {{ form.lengthsBehind.label }}
+          {{ form.lengthsBehind(size=10) }}
         </fieldset>
         <button onclick=randomRace() class="btn btn-block">
           {{ form.submit }}
