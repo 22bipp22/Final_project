@@ -10,6 +10,7 @@ from flask import (
     render_template,
     jsonify,
     request,
+    session,
     redirect)
 from keys import sqlkey
 from sqlalchemy import and_
@@ -67,9 +68,11 @@ def home():
         lengthsBehind = form.lengthsBehind.data
         print(f"HERE IT IS {winOdds}, {raceClass}, {distance}")
         # Call the function 'race' to run the mock race
-        race(form)
-    
-    return render_template("index.html", form=form)
+        race_df = race(form)
+        session["data"] = race_df.to_json()
+        return render_template("race.html")
+    else: 
+        return render_template("index.html", form=form)
 
 
 
@@ -84,9 +87,14 @@ def send():
 @cross_origin()
 def dataset():
 
-    filtered_df = pd.read_sql(filtered_sql, connection)
-    filtered_df_dictionary = filtered_df.to_dict('records')
-    print(f'this {filtered_df["horse_id"][0]}')
+    # filtered_df = pd.read_sql(filtered_sql, connection)
+    # filtered_df_dictionary = filtered_df.to_dict('records')
+    # print(f'this {filtered_df}')
+    race_data = session.get('data')
+    race_data = pd.read_json(race_data)
+    print(f"race data {race_data}")
+    filtered_df_dictionary = race_data.to_dict('records')
+    print(f'this {filtered_df_dictionary}')
 
     return jsonify(filtered_df_dictionary)
 
@@ -138,42 +146,43 @@ def race(horse):
             "place_odds": [placeodds]
         })
 
-    horseNums = random.sample(range(4404), 13)
-    print(f"horsenumbers {horseNums}")
-    for num in horseNums: 
-        row = horse_df.loc[horse_df['horse_id'] == num].iloc[0]
-        df = pd.DataFrame ([[
-            row.race_id,
-            row.horse_id,
-            row.won, 
-            row.distance,
-            row.race_class,
-            row.sec_time1,
-            row.sec_time2,
-            row.sec_time3,
-            row.sec_time4,
-            row.ldr_time1,
-            row.ldr_time2,
-            row.ldr_time3,
-            row.ldr_time4,
-            row.lengths_behind,
-            row.behind_sec1,
-            row.behind_sec2,
-            row.behind_sec3,
-            row.behind_sec4,
-            row.time1,
-            row.time2,
-            row.time3,
-            row.time4,
-            row.finish_time,
-            row.win_odds,
-            row.place_odds]], columns=race_df.columns)
-        race_df = pd.concat([race_df, df])
+    # horseNums = random.sample(range(4404), 13)
+    # print(f"horsenumbers {horseNums}")
+    # for num in horseNums: 
+    #     row = horse_df.loc[horse_df['horse_id'] == num].iloc[0]
+    #     df = pd.DataFrame ([[
+    #         row.race_id,
+    #         row.horse_id,
+    #         row.won, 
+    #         row.distance,
+    #         row.race_class,
+    #         row.sec_time1,
+    #         row.sec_time2,
+    #         row.sec_time3,
+    #         row.sec_time4,
+    #         row.ldr_time1,
+    #         row.ldr_time2,
+    #         row.ldr_time3,
+    #         row.ldr_time4,
+    #         row.lengths_behind,
+    #         row.behind_sec1,
+    #         row.behind_sec2,
+    #         row.behind_sec3,
+    #         row.behind_sec4,
+    #         row.time1,
+    #         row.time2,
+    #         row.time3,
+    #         row.time4,
+    #         row.finish_time,
+    #         row.win_odds,
+    #         row.place_odds]], columns=race_df.columns)
+    #     race_df = pd.concat([race_df, df])
         
         
 
     # print(f"one horse: {model.predict(horsearray)}") 
-    print(f"race df {race_df}")
+    # print(f"race df {race_df}")
+    return race_df
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -98,7 +98,8 @@ function randomRace() {
 
 
         
-    });  
+    }); 
+     
 console.log(arrayofarrays) 
   });
 }
