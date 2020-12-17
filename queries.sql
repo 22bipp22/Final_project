@@ -84,7 +84,35 @@ id serial primary key
 ,win_dividend2 numeric(18,2)
 );
 
+CREATE TABLE best_data_set(
+ race_id integer
+,horse_id integer
+,won integer
+,distance numeric(18,2)
+,race_class numeric(18,2)
+,sec_time1 numeric(18,2)
+,sec_time2 numeric(18,2)
+,sec_time3 numeric(18,2)
+,sec_time4 numeric(18,2)
+,ldr_time1  numeric(18,2)
+,ldr_time2  numeric(18,2)
+,ldr_time3  numeric(18,2)
+,ldr_time4  numeric(18,2)
+--,result numeric(18,2)
+,lengths_behind numeric(18,2)
+,behind_sec1 numeric(18,2)
+,behind_sec2 numeric(18,2)
+,behind_sec3 numeric(18,2)
+,behind_sec4 numeric(18,2)
+,time1 numeric(18,2)
+,time2 numeric(18,2)
+,time3 numeric(18,2)
+,time4 numeric(18,2)
+,finish_time numeric(18,2)
+,win_odds numeric(18,2)
+,place_odds numeric(18,2)
 
+)
 
 
 
@@ -230,41 +258,6 @@ id serial primary key
 ,place_odds numeric(18,2)
 ,trainer_id integer
 ,jockey_id integer);
-*/
-
-/*
-CREATE TABLE best_data_set(
- race_id integer
-,finish_time numeric(18,2)
-,horse_id integer
-,won integer
-,distance numeric(18,2)
-,race_class numeric(18,2)
-,sec_time1 numeric(18,2)
-,sec_time2 numeric(18,2)
-,sec_time3 numeric(18,2)
-,sec_time4 numeric(18,2)
-,ldr_time1  numeric(18,2)
-,ldr_time2  numeric(18,2)
-,ldr_time3  numeric(18,2)
-,ldr_time4  numeric(18,2)
---,result numeric(18,2)
-,lengths_behind numeric(18,2)
-,behind_sec1 numeric(18,2)
-,behind_sec2 numeric(18,2)
-,behind_sec3 numeric(18,2)
-,behind_sec4 numeric(18,2)
-,time1 numeric(18,2)
-,time2 numeric(18,2)
-,time3 numeric(18,2)
-,time4 numeric(18,2)
-,win_odds numeric(18,2)
-,place_odds numeric(18,2)
-
-)
-
-
-
 */
 
 
