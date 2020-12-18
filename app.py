@@ -60,6 +60,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
 
 # Remove tracking modifications
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+ 
+ # Connects to the database using the app config
+db = SQLAlchemy(app)
 
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
