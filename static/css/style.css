@@ -9,14 +9,14 @@
   text-align: center;
   padding: 40px;
   
-}  
-
+} 
 
 #maintitle {
   position: relative;
   width: 100%;
   align-items: center;
   height: 100%;
+  
 }
 
 #maintitle::before {
@@ -31,13 +31,20 @@
   left: 0px;
   }
 
+#offtorace {
+  animation-duration: 4s;
+  animation-name: slidein;
+  animation-iteration-count: 5;
+}
+
 h1 {
   position: relative;
   font-family: fantasy; 
   font-weight: bold;
   -webkit-text-stroke: 1px #004d38;
   text-align: center;
-  }
+  
+}
 
 h3 {
   position: relative;
@@ -46,3 +53,19 @@ h3 {
   -webkit-text-stroke: 1px #004d38;
   text-align: center;
   }
+
+nav {
+  background-color: #009999;
+}
+
+@keyframes slidein {
+  0% {
+    margin-left: 0%;
+  }
+  50% {
+    margin-left: 300px;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
