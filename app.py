@@ -40,7 +40,7 @@ Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82
 # Do I still need to create engine?
 #################################################
 
-engine = create_engine('postgresql://postgres:vxxvsttmphdruz:73d25ecb18a856e33e951d6426ab7ffa8131c83518b6a986faf1e35768255d87@ec2-54-159-107-189.compute-1.amazonaws.com:5432/d4lnindlr9uebh')
+engine = create_engine(os.environ.get('HEROKU_POSTGRESQL_IVORY_URL', ''))
 connection = engine.connect()
 
 filtered_sql = "select * from best_ranked_data where 1=1"
@@ -56,16 +56,10 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
-
 # Remove tracking modifications
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-#################################################
-Pet = create_classes(db) #this needs to be created along with models.py
-#################################################
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
 
