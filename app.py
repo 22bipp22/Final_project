@@ -11,7 +11,7 @@ from flask import (
     jsonify,
     request,
     redirect)
-from keys import sqlkey
+# we may not need this -----  from keys import sqlkey
 from sqlalchemy import and_
 from flask_cors import cross_origin
 from sklearn.linear_model import LogisticRegression 
@@ -36,7 +36,7 @@ Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82
 
 
 
-engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_races')
+engine = create_engine('postgresql://postgres:vxxvsttmphdruz:73d25ecb18a856e33e951d6426ab7ffa8131c83518b6a986faf1e35768255d87@ec2-54-159-107-189.compute-1.amazonaws.com:5432/d4lnindlr9uebh')
 connection = engine.connect()
 
 filtered_sql = "select * from best_ranked_data where 1=1"
@@ -46,7 +46,8 @@ app = Flask(__name__)
 
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
-app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
+from flask_sqlalchemy import SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
 
 #################################################
 # Flask Routes
