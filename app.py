@@ -41,6 +41,8 @@ engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_ra
 connection = engine.connect()
 
 filtered_sql = "select * from best_ranked_data where 1=1"
+uniqueid_sql = "select * from uniqueids"
+fit_data = pd.read_sql(filtered_sql, connection)
 
 
 app = Flask(__name__)
@@ -68,8 +70,8 @@ def home():
         lengthsBehind = form.lengthsBehind.data
         print(f"HERE IT IS {winOdds}, {raceClass}, {distance}")
         # Call the function 'race' to run the mock race
-        race_df = race(form)
-        session["data"] = race_df.to_json()
+        df = race(form)
+        session["data"] = df.to_json()
         return render_template("race.html")
     else: 
         return render_template("index.html", form=form)
@@ -110,7 +112,7 @@ def dataset():
 # Function to set up the mock race and run it through the ML model
 def race(horse):  
 
-    horse_df = pd.read_sql(filtered_sql, connection)
+    horse_df = pd.read_sql(uniqueid_sql, connection)
 
     winodds = horse.winOdds.data   
     placeodds = horse.placeOdds.data    
@@ -119,70 +121,51 @@ def race(horse):
     lengths = horse.lengthsBehind.data  
 
     race_df = pd.DataFrame ({
-            "race_id": [2],
-            "horse_id": [9999],
-            "won": [0], 
+            "race_id": [320],
+            "horse_id": [3992],
             "distance": [distance],
             "race_class": [raceclass],
-            "sec_time1": [23],
-            "sec_time2": [24],
-            "sec_time3": [23],
-            "sec_time4": [24],
-            "ldr_time1": [25],
-            "ldr_time2": [28],
-            "ldr_time3": [72],
-            "ldr_time4": [95],
+            "sec_time1": [26.34],
+            "sec_time2": [24.67],
+            "sec_time3": [25.50],
+            "sec_time4": [24.86],
+            "ldr_time1": [26.34],
+            "ldr_time2": [51.01],
+            "ldr_time3": [76.51],
+            "ldr_time4": [101.37],
             "lengths_behind": [lengths],
-            "behind_sec1": [3],
-            "behind_sec2": [4],
-            "behind_sec3": [7],
-            "behind_sec4": [9],
-            "time1": [25],
-            "time2": [25],
-            "time3": [25],
-            "time4": [25],
-            "finish_time": [0.00],
+            "behind_sec1": [9.00],
+            "behind_sec2": [8.75],
+            "behind_sec3": [8.75],
+            "behind_sec4": [8.50],
+            "time1": [27.78],
+            "time2": [24.63],
+            "time3": [25.50],
+            "time4": [24.82],
             "win_odds": [winodds],
             "place_odds": [placeodds]
         })
 
-    # horseNums = random.sample(range(4404), 13)
-    # print(f"horsenumbers {horseNums}")
-    # for num in horseNums: 
-    #     row = horse_df.loc[horse_df['horse_id'] == num].iloc[0]
-    #     df = pd.DataFrame ([[
-    #         row.race_id,
-    #         row.horse_id,
-    #         row.won, 
-    #         row.distance,
-    #         row.race_class,
-    #         row.sec_time1,
-    #         row.sec_time2,
-    #         row.sec_time3,
-    #         row.sec_time4,
-    #         row.ldr_time1,
-    #         row.ldr_time2,
-    #         row.ldr_time3,
-    #         row.ldr_time4,
-    #         row.lengths_behind,
-    #         row.behind_sec1,
-    #         row.behind_sec2,
-    #         row.behind_sec3,
-    #         row.behind_sec4,
-    #         row.time1,
-    #         row.time2,
-    #         row.time3,
-    #         row.time4,
-    #         row.finish_time,
-    #         row.win_odds,
-    #         row.place_odds]], columns=race_df.columns)
-    #     race_df = pd.concat([race_df, df])
-        
-        
+    horseNums = random.sample(range(4404), 13)
+    print(f"horsenumbers {horseNums}")
+    df = pd.DataFrame({})
+    for num in horseNums:
+        row = (horse_df.loc[horse_df['horse_id'] == num],)
+        df = df.append(row)
+    
+    df = df.append(race_df)              
+    
+    from sklearn import preprocessing 
+    scaler = preprocessing.MinMaxScaler()
+    minmax_df = scaler.fit(fit_data.drop(columns=["won", "finish_time"]))
+    random_race_scaled = scaler.transform(df)
 
-    # print(f"one horse: {model.predict(horsearray)}") 
-    # print(f"race df {race_df}")
-    return race_df
+
+    race_rank = (sorted(zip(model.predict(random_race_scaled),(df['horse_id'])), reverse=False))
+    print(race_rank)
+    print('-------------------------')
+    print(f"The WINNER is Horse Number {race_rank[0][1]}")
+    return df
 
 if __name__ == '__main__':
     app.run(debug=True)
