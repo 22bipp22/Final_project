@@ -2,6 +2,7 @@ import random
 import sqlalchemy
 import pandas as pd
 import joblib
+import os
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
@@ -12,13 +13,14 @@ from flask import (
     request,
     session,
     redirect)
-from keys import sqlkey
+#from keys import sqlkey
 from sqlalchemy import and_
 from flask_cors import cross_origin
 from sklearn.linear_model import LogisticRegression 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, SubmitField, FloatField, SelectField
 from wtforms.validators import DataRequired, Length
+from flask_sqlalchemy import SQLAlchemy
 
 # Added to create form -
 class HorseForm(FlaskForm):
@@ -35,17 +37,31 @@ model = joblib.load('horse_time_model.sav')
 Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82.64,10,8,2,2,1.5,8,13.85,21.59,23.86,24.62,9.7,3.7
 ])
 
+#################################################
+# engine
+#################################################
 
-
-engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_races')
+engine = create_engine(os.environ.get('HEROKU_POSTGRESQL_IVORY_URL', ''))
 connection = engine.connect()
 
 filtered_sql = "select * from best_data_set where 1=1"
 uniqueid_sql = "select * from uniqueids"
 fit_data = pd.read_sql(filtered_sql, connection)
 
+#################################################
+# Flask Setup
+#################################################
 
 app = Flask(__name__)
+
+#################################################
+# Database Setup
+#################################################
+
+# Remove tracking modifications
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
