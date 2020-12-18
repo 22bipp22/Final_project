@@ -6,8 +6,8 @@
 
 
 #newlook {
-  /* color: #004d38;
-  background-color : #1affc6; */
+  /* color: #004d38;  */
+  background-color : #006600;
   text-align: center;
   padding: 40px;
   
@@ -41,7 +41,6 @@
 
 h1 {
   position: relative;
-  /* font-family: fantasy;  */
   font-weight: bold;
   -webkit-text-stroke: 1px white;
   text-align: center;
@@ -50,8 +49,7 @@ h1 {
 }
 
 h3 {
-  position: relative;
-  /* font-family: fantasy;  */
+  position: relative;  
   font-weight: bold;
   -webkit-text-stroke: 1px white;
   text-align: center;
