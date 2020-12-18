@@ -19,6 +19,7 @@ from sklearn.linear_model import LogisticRegression
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, SubmitField, FloatField, SelectField
 from wtforms.validators import DataRequired, Length
+from flask_sqlalchemy import SQLAlchemy
 
 # Added to create form -
 class HorseForm(FlaskForm):
