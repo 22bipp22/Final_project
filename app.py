@@ -40,7 +40,7 @@ Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82
 engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_races')
 connection = engine.connect()
 
-filtered_sql = "select * from best_ranked_data where 1=1"
+filtered_sql = "select * from best_data_set where 1=1"
 uniqueid_sql = "select * from uniqueids"
 fit_data = pd.read_sql(filtered_sql, connection)
 
@@ -94,9 +94,9 @@ def dataset():
     # print(f'this {filtered_df}')
     race_data = session.get('data')
     race_data = pd.read_json(race_data)
-    print(f"race data {race_data}")
+    # print(f"race data {race_data}")
     filtered_df_dictionary = race_data.to_dict('records')
-    print(f'this {filtered_df_dictionary}')
+    # print(f'this {filtered_df_dictionary}')
 
     return jsonify(filtered_df_dictionary)
 
@@ -147,7 +147,7 @@ def race(horse):
         })
 
     horseNums = random.sample(range(4404), 13)
-    print(f"horsenumbers {horseNums}")
+    # print(f"horsenumbers {horseNums}")
     df = pd.DataFrame({})
     for num in horseNums:
         row = (horse_df.loc[horse_df['horse_id'] == num],)
@@ -160,7 +160,7 @@ def race(horse):
     minmax_df = scaler.fit(fit_data.drop(columns=["won", "finish_time"]))
     random_race_scaled = scaler.transform(df)
 
-
+    df["finish_time"] = model.predict(random_race_scaled)
     race_rank = (sorted(zip(model.predict(random_race_scaled),(df['horse_id'])), reverse=False))
     print(race_rank)
     print('-------------------------')
