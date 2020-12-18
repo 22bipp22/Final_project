@@ -35,20 +35,35 @@ model = joblib.load('horse_time_model.sav')
 Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82.64,10,8,2,2,1.5,8,13.85,21.59,23.86,24.62,9.7,3.7
 ])
 
-
+#################################################
+# Create Engine
+#################################################
 
 engine = create_engine('postgresql://postgres:vxxvsttmphdruz:73d25ecb18a856e33e951d6426ab7ffa8131c83518b6a986faf1e35768255d87@ec2-54-159-107-189.compute-1.amazonaws.com:5432/d4lnindlr9uebh')
 connection = engine.connect()
 
 filtered_sql = "select * from best_ranked_data where 1=1"
 
+#################################################
+# Flask Setup
+#################################################
 
 app = Flask(__name__)
 
+
+#################################################
+# Database Setup
+#################################################
+
+from flask_sqlalchemy import SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
+
+# Remove tracking modifications
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
-from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
+app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 
 #################################################
 # Flask Routes
