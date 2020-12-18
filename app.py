@@ -13,7 +13,7 @@ from flask import (
     request,
     session,
     redirect)
-#from keys import sqlkey
+from keys import sqlkey
 from sqlalchemy import and_
 from flask_cors import cross_origin
 from sklearn.linear_model import LogisticRegression 
@@ -41,12 +41,16 @@ Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82
 # engine
 #################################################
 
-engine = create_engine(os.environ.get('HEROKU_POSTGRESQL_IVORY_URL', ''))
+# engine = create_engine(os.environ.get('HEROKU_POSTGRESQL_IVORY_URL', ''))
+# connection = engine.connect()
+
+engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_races')
 connection = engine.connect()
 
 filtered_sql = "select * from best_data_set where 1=1"
 uniqueid_sql = "select * from uniqueids"
 fit_data = pd.read_sql(filtered_sql, connection)
+
 
 #################################################
 # Flask Setup
@@ -59,9 +63,9 @@ app = Flask(__name__)
 #################################################
 
 # Remove tracking modifications
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
@@ -173,7 +177,7 @@ def race(horse):
     
     from sklearn import preprocessing 
     scaler = preprocessing.MinMaxScaler()
-    minmax_df = scaler.fit(fit_data.drop(columns=["won", "finish_time"]))
+    minmax_df = scaler.fit(fit_data.drop(columns=["won"]))
     random_race_scaled = scaler.transform(df)
 
     df["finish_time"] = model.predict(random_race_scaled)

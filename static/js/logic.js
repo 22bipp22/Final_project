@@ -38,7 +38,7 @@
 
       }
 
-      let table = webBody.append("table")
+      let table = webBody.append("table table-info")
       table.attr("style", "margin: 20px; width: 100%")
          
       

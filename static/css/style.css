@@ -1,11 +1,13 @@
 .homepage {
-  background-color: #ccffff;
-  font-family: fantasy;
+  background-color: #baecec;
+  /* font-family: fantasy; */
 }
 
+
+
 #newlook {
-  color: #004d38;
-  background-color : #1affc6;
+  /* color: #004d38;
+  background-color : #1affc6; */
   text-align: center;
   padding: 40px;
   
@@ -39,24 +41,23 @@
 
 h1 {
   position: relative;
-  font-family: fantasy; 
+  /* font-family: fantasy;  */
   font-weight: bold;
-  -webkit-text-stroke: 1px #004d38;
+  -webkit-text-stroke: 1px white;
   text-align: center;
+  text-shadow: 2px 2px 4px #000000;
   
 }
 
 h3 {
   position: relative;
-  font-family: fantasy; 
+  /* font-family: fantasy;  */
   font-weight: bold;
-  -webkit-text-stroke: 1px #004d38;
+  -webkit-text-stroke: 1px white;
   text-align: center;
+  text-shadow: 2px 2px 4px #000000;
   }
 
-nav {
-  background-color: #009999;
-}
 
 @keyframes slidein {
   0% {
