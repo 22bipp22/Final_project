@@ -26,7 +26,7 @@
 
       let declareWinner = d3.select("#winner")
       if (sortedRace[0].horse_id == 3992) {
-      
+    
         declareWinner.text("CONGRATULATIONS!! Your horse is the WINNER!")
                     .attr("style", "text-align: center; width: 100%")
 
@@ -38,7 +38,7 @@
 
       }
 
-      let table = webBody.append("table table-info")
+      let table = webBody.append("table")
       table.attr("style", "margin: 20px; width: 100%")
          
       
@@ -84,7 +84,7 @@
           }
 
           let cell3 = row.append('td')
-          cell3.text(sortedRace[i].finish_time)
+          cell3.text(sortedRace[i].finish_time.toFixed(2))
               .attr("style", "text-align: center");
           
              

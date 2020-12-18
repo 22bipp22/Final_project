@@ -177,7 +177,7 @@ def race(horse):
     
     from sklearn import preprocessing 
     scaler = preprocessing.MinMaxScaler()
-    minmax_df = scaler.fit(fit_data.drop(columns=["won"]))
+    minmax_df = scaler.fit(fit_data.drop(columns=["won", "finish_time"]))
     random_race_scaled = scaler.transform(df)
 
     df["finish_time"] = model.predict(random_race_scaled)
