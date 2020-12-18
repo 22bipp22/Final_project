@@ -56,13 +56,10 @@ app = Flask(__name__)
 #################################################
 
 from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
 
 # Remove tracking modifications
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
- 
- # Connects to the database using the app config
-db = SQLAlchemy(app)
 
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
