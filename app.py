@@ -41,11 +41,11 @@ Xtest = pd.DataFrame([0,3917,1400,5,13.53,21.59,23.94,23.58,13.53,35.12,59.06,82
 # engine
 #################################################
 
-# engine = create_engine(os.environ.get('HEROKU_POSTGRESQL_IVORY_URL', ''))
-# connection = engine.connect()
-
-engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_races')
+engine = create_engine(os.environ.get('HEROKU_POSTGRESQL_IVORY_URL', ''))
 connection = engine.connect()
+
+# engine = create_engine('postgresql://postgres:'+sqlkey+'@localhost:5432/horse_races')
+# connection = engine.connect()
 
 filtered_sql = "select * from best_data_set where 1=1"
 uniqueid_sql = "select * from uniqueids"
