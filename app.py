@@ -13,7 +13,7 @@ from flask import (
     request,
     session,
     redirect)
-from keys import sqlkey
+# from keys import sqlkey
 from sqlalchemy import and_
 from flask_cors import cross_origin
 from sklearn.linear_model import LogisticRegression 
