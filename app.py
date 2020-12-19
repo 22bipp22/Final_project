@@ -63,9 +63,9 @@ app = Flask(__name__)
 #################################################
 
 # Remove tracking modifications
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 # Added to create form -
 # Flask-WTF requires an encryption key - the string can be anything
