@@ -3,7 +3,7 @@
 The purpose of our model is to create a model that can predit winning probablitlies that correlate with certain variables in horse racing.
 
 ## Live Page 
-[Click here](https://double-kaching-tx-counties.herokuapp.com/)
+[Click here](https://off-to-the-races.herokuapp.com/)
 
 ## Team members
 - Anthony Avitia
