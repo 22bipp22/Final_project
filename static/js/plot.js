@@ -4,7 +4,7 @@ function initializeViz() {
     let placeholderDiv2 = document.getElementById("tableauViz2");
     // URL of the viz to be embedded
     let url = "http://public.tableau.com/views/off_to_the_races/Offtotheraces";
-    let url2 = "http://public.tableau.com/views/off_to_the_races/Offtotheraces";
+    let url2 = "http://public.tableau.com/views/race_track/Racetrack";
     // An object that contains options specifying how to embed the viz
     let options = {
       width: '1000px',
